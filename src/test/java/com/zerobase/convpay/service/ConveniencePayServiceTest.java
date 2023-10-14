@@ -17,18 +17,18 @@ class ConveniencePayServiceTest {
     @Test
     void paySuccess() {
         //given : 어떤 데이터가 있을 때
-        PayRequest payRequest = new PayRequest(PayMethodType.CARD, ConvenienceType.G25, 10000);
+        PayRequest payRequest = new PayRequest(PayMethodType.MONEY, ConvenienceType.G25, 10000);
         //when : 어떤 동작을 하면?
         PayResponse payResponse = conveniencePayService.pay(payRequest);
         //then : 어떤 결과가 나온다.
         assertEquals(PayResult.SUCCESS, payResponse.getPayResult());
-        assertEquals(10000, payResponse.getPaidAmount());
+        assertEquals(7000, payResponse.getPaidAmount());
     }
     
     @Test
     void payFail() {
         //given : 어떤 데이터가 있을 때
-        PayRequest payRequest = new PayRequest(PayMethodType.CARD, ConvenienceType.G25, 1000001);
+        PayRequest payRequest = new PayRequest(PayMethodType.MONEY, ConvenienceType.G25, 1500001);
         //when : 어떤 동작을 하면?
         PayResponse payResponse = conveniencePayService.pay(payRequest);
         //then : 어떤 결과가 나온다.
