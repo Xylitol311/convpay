@@ -18,7 +18,7 @@ public class CardAdapter implements PaymentInterface {
     
     //3. 매입
     public CardUseResult capture(Integer payAmount) {
-        if (payAmount > 100) {
+        if (payAmount > 1000000) {
             // 실패
             return CardUseResult.USE_FAIL;
         }
