@@ -10,6 +10,8 @@ public class ConveniencePayService {
     private final MoneyAdapter moneyAdapter = new MoneyAdapter();
     private final CardAdapter cardAdapter = new CardAdapter();
     
+    private final DiscountInterface discountInterface = new DiscountByPayMethod();
+    
     public PayResponse pay(PayRequest payRequest) {
         PaymentInterface paymentInterface;
         
@@ -18,8 +20,8 @@ public class ConveniencePayService {
         } else {
             paymentInterface = moneyAdapter;
         }
-        
-        PaymentResult paymentResult = paymentInterface.payment(payRequest.getPayAmount());
+        Integer discountedAmount = discountInterface.getDiscountedAmount(payRequest);
+        PaymentResult paymentResult = paymentInterface.payment(discountedAmount);
         
         // Fail Case
         if (paymentResult == PaymentResult.PAYMENT_FAIL) {
@@ -27,7 +29,7 @@ public class ConveniencePayService {
         }
         
         // Success Case
-        return new PayResponse(PayResult.SUCCESS, payRequest.getPayAmount());
+        return new PayResponse(PayResult.SUCCESS, discountedAmount);
         
     }
     
