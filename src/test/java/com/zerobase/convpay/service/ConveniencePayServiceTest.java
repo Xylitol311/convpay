@@ -2,6 +2,8 @@ package com.zerobase.convpay.service;
 
 import com.zerobase.convpay.dto.PayCancelRequest;
 import com.zerobase.convpay.dto.PayCancelReseponse;
+import com.zerobase.convpay.service.adapter.CardAdapter;
+import com.zerobase.convpay.service.adapter.MoneyAdapter;
 import com.zerobase.convpay.type.ConvenienceType;
 import com.zerobase.convpay.dto.PayRequest;
 import com.zerobase.convpay.dto.PayResponse;
@@ -10,10 +12,18 @@ import com.zerobase.convpay.type.PayMethodType;
 import com.zerobase.convpay.type.PayResult;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConveniencePayServiceTest {
-    ConveniencePayService conveniencePayService = new ConveniencePayService();
+    ConveniencePayService conveniencePayService = new ConveniencePayService(
+            new HashSet<>(
+                    Arrays.asList(new MoneyAdapter(), new CardAdapter())
+            ),
+            new DiscountByConvenience()
+    );
     @Test
     void paySuccess() {
         //given : 어떤 데이터가 있을 때

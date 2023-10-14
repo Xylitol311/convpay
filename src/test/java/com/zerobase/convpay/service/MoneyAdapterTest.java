@@ -1,5 +1,6 @@
 package com.zerobase.convpay.service;
 
+import com.zerobase.convpay.service.adapter.MoneyAdapter;
 import com.zerobase.convpay.type.MoneyUseCancelResult;
 import com.zerobase.convpay.type.MoneyUseResult;
 import org.junit.jupiter.api.Test;
